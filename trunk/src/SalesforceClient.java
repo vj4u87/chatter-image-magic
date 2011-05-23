@@ -25,41 +25,72 @@ import com.sforce.ws.ConnectionException;
 
 public class SalesforceClient {
 	private static String DEFAULT_ENDPOINT = "http://www.salesforce.com/services/Soap/u/21.0";
-	PartnerConnection connection;
-	String authEndPoint = "";
+		
+	private String authEndPoint = "";
+	private ConnectorConfig config = new ConnectorConfig();
 	
-	public boolean login() {
-		boolean success = false;
-		String userId = Utils.getUserInput("UserID: ");
-		String passwd = Utils.getUserInput("Password: ");
+	private PartnerConnection connection;
+	
+	public SalesforceClient (String username, String password) {
 		try {
-			ConnectorConfig config = new ConnectorConfig();
-			config.setUsername(userId);
-			config.setPassword(passwd);
-			
+			config.setUsername(username);
+			config.setPassword(password);
+
 			config.setAuthEndpoint(DEFAULT_ENDPOINT);
 			config.setTraceFile("traceLogs.txt");
 			config.setTraceMessage(true);
 			config.setPrettyPrintXml(true);
-			connection = new PartnerConnection(config);
-			GetUserInfoResult userInfo = connection.getUserInfo();
-			System.out.println("\nLogging in ...\n");
-			System.out.println("UserID: " + userInfo.getUserId());
-			System.out.println("User Full Name: " + userInfo.getUserFullName());
-			System.out.println("User Email: " + userInfo.getUserEmail());
-			System.out.println();
-			System.out.println("SessionID: " + config.getSessionId());
-			System.out.println("Auth End Point: " + config.getAuthEndpoint());
-			System.out.println("Service End Point: "
-					+ config.getServiceEndpoint());
-			System.out.println();
-			success = true;
-		} catch (ConnectionException ce) {
-			ce.printStackTrace();
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		}
+	}
+	
+	public boolean login() {
+		boolean success = false;
+
+		try {
+			connection = new PartnerConnection(config);
+			
+			success = true;
+		} catch (ConnectionException ce) {
+			ce.printStackTrace();
+		} 
 		return success;
+	}
+	
+	public void logout() {
+		try {
+			connection.logout();
+			System.out.println("Logged out");
+		} catch (ConnectionException ce) {
+			ce.printStackTrace();
+		}
+	}
+	
+	public void getUserInfo() {
+		try {
+			GetUserInfoResult userInfo = connection.getUserInfo();
+		} catch (ConnectionException ce) {
+			ce.printStackTrace();
+		} 
+		
+		System.out.println("\nLogging in ...\n");
+		/*System.out.println("UserID: " + userInfo.getUserId());
+		System.out.println("User Full Name: " + userInfo.getUserFullName());
+		System.out.println("User Email: " + userInfo.getUserEmail());
+		System.out.println();
+		*/
+		System.out.println("SessionID: " + config.getSessionId());
+		System.out.println("Auth End Point: " + config.getAuthEndpoint());
+		authEndPoint = config.getAuthEndpoint();
+		System.out.println("Service End Point: "
+				+ config.getServiceEndpoint());
+		System.out.println();
+	}
+	                           
+
+	public void downloadImage(Downloadable d) {
+		
 	}
 	
 	public SObject[] runQuery(String soql) {
@@ -71,8 +102,8 @@ public class SalesforceClient {
 			if (result.getSize() > 0) {
 				while (!done) {
 					SObject[] records = result.getRecords();
-					for (int i = 0; i < records.length; ++i) {
-						System.out.println("xxx");
+					for (SObject s : records) {
+						System.out.println(s.getId());
 					}
 					if (result.isDone()) {
 						done = true;

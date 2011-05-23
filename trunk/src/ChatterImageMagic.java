@@ -16,13 +16,35 @@ import com.sforce.ws.ConnectionException;
 
 public class ChatterImageMagic {
 	
+	/*
+	function downloadImage($url,$file) {
+		// create curl resource 
+		$ch = curl_init(); 
 
-	PartnerConnection connection;
-	String authEndPoint = "";
+		// set url 
+		curl_setopt($ch, CURLOPT_URL, $url);
+
+		//return the transfer as a string 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+
+		// $output contains the output string 
+		$output = curl_exec($ch); 
+
+		// close curl resource to free up system resources 
+		curl_close($ch);
+
+		$fullpath = $file;
+		if(file_exists($fullpath)){
+		        unlink($fullpath);
+		    }
+		    $fp = fopen($fullpath,'x');
+		    fwrite($fp, $output);
+		    fclose($fp);
+		}
 	
-	private static BufferedReader reader = new BufferedReader(
-			new InputStreamReader(System.in));
-
+	*/
+	
 	/*
 	 * public static void main(String[] args) { BufferedImage image = null; try
 	 * {
@@ -39,30 +61,74 @@ public class ChatterImageMagic {
 	 */
 
 
-
 	public static void main(String[] args) {
-		SalesforceClient salesforceClient = new SalesforceClient();
+		SalesforceClient salesforceClient = new SalesforceClient("vswamidass@dev.salesforce.com","kanowins");
 		if (salesforceClient.login()) {
 			SObject[] x = salesforceClient.runQuery("Select id from user");
 		}
-	}
-
-	public ChatterImageMagic(String authEndPoint) {
-		this.authEndPoint = authEndPoint;
-	}
-
-
-
-
-
-
-	public void logout() {
+		
 		try {
-			connection.logout();
-			System.out.println("Logged out");
-		} catch (ConnectionException ce) {
-			ce.printStackTrace();
+			URL u = new URL("http://salesforce.com/xyx/asdfa");
+			System.out.println(u.getPath());
+			StringBuilder s = new StringBuilder("http://salesforce.com/xyx/asdfa");
+			Integer location = s.indexOf(u.getPath());
+			
+			s.replace(location, s.length(), "");
+			
+			System.out.println(s);
+		} catch (Exception e) {
+			
 		}
+		
+		
+		
+		//$query = "Select Id,SmallPhotoUrl,FullPhotoUrl from User where FullPhotoUrl !=  '/profilephoto/005/F' and IsActive = true";
+		//$response = $client->query($query);
+
+		/*
+		 * 
+		 * Query all users with photo URL
+		 * create ChatterProfileObject with small/full photo urls
+		 * call downloader(Client, ChatterProfileObject)
+		 * 
+		 * 
+		 */
+		
+		
+		/*
+		while (!$done) {
+			foreach ($response->records as $record) {
+				if($record instanceof SObject){
+						$row = getQueryResultRow($record);
+				} else{
+						$row = getQueryResultRow(new SObject($record));
+				}
+
+		$id = $row[0];
+		$smallPath = $row[1];
+		$fullPath = $row[2];
+
+		$smallUrl = "https://na1.salesforce.com" . $smallPath . "?oauth_token=".$loginResult->sessionId; 
+		$smallFile = 'small_images/' . $id . '_s.png';
+		downloadImage($smallUrl, $smallFile);
+
+		$fullUrl = "https://na1.salesforce.com" . $fullPath . "?oauth_token=".$loginResult->sessionId; 
+		$fullFile = 'large_images/' . $id . '_f.png';
+		#downloadImage($fullUrl, $fullFile);
+			}
+
+
+		        if ($response->done) {
+		                $done = true;
+		        } else {
+		                $response = $client->queryMore($response->queryLocator);
+		        }
+		}
+		*/
+		
 	}
+
+
+
 
 }
