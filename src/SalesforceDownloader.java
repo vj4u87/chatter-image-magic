@@ -17,13 +17,21 @@ public class SalesforceDownloader {
 	}
 	
 	public String getFullUrl(String path) {
-		return salesforceClient.getProtocolAndHost() + path +
-				"?oauth_token=" + salesforceClient.getSessionId();
+		String hostAndPath;
+		if (path.contains("https://")){
+			hostAndPath = path;
+		} else {
+			hostAndPath = salesforceClient.getProtocolAndHost() + path;
+		}
+		
+		return hostAndPath + "?oauth_token=" + salesforceClient.getSessionId();
 	}
 	
 	public void downloadImageToFile(Downloadable d) {
 		 try {
 			 URL url = new URL(getFullUrl(d.getUrl()));
+			 
+			 System.out.println(url);
 			 BufferedImage image = ImageIO.read(url);
 			 
 			//need to check format and save with correct extension
