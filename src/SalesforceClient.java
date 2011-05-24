@@ -32,9 +32,9 @@ public class SalesforceClient {
 			config.setAuthEndpoint(DEFAULT_ENDPOINT);
 			if (false) {
 				config.setTraceFile("traceLogs.txt");
+				config.setTraceMessage(true);
+				config.setPrettyPrintXml(true);
 			}
-			config.setTraceMessage(true);
-			config.setPrettyPrintXml(true);
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		}

@@ -26,9 +26,9 @@ public class ChatterImageMagic {
 		
 		if (salesforceClient.login()) {
 			List<SObject> userList = salesforceClient.getQueryResultRecords("" +
-					"Select Id,SmallPhotoUrl,FullPhotoUrl from User " +
+					"Select Id,SmallPhotoUrl,FullPhotoUrl,Username from User " +
 					"where FullPhotoUrl !=  '/profilephoto/005/F' " +
-					"and IsActive = true LIMIT 100");
+					"and IsActive = true LIMIT 10");
 			
 			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient,"images");
 			
@@ -37,7 +37,8 @@ public class ChatterImageMagic {
 				ChatterProfileImage i = new ChatterProfileImage(
 						s.getField("SmallPhotoUrl").toString(),
 						s.getField("FullPhotoUrl").toString(),
-						s.getField("Id").toString());
+						s.getField("Id").toString(),
+						s.getField("Username").toString());
 				sd.downloadImageToFile(i);
 				count++;
 			}
