@@ -9,9 +9,11 @@ import javax.imageio.ImageIO;
 public class SalesforceDownloader {
 	
 	private SalesforceClient salesforceClient;
+	private String dowloadDirectory;
 	
-	public SalesforceDownloader(SalesforceClient sc) {
+	public SalesforceDownloader(SalesforceClient sc, String d) {
 		salesforceClient = sc;
+		dowloadDirectory = d;
 	}
 	
 	public String getFullUrl(String path) {
@@ -21,18 +23,18 @@ public class SalesforceDownloader {
 	
 	public void downloadImageToFile(Downloadable d) {
 		 try {
-			 URL url = new URL(getFullUrl(d.getUrl())); 
-			 System.out.println(url);
+			 URL url = new URL(getFullUrl(d.getUrl()));
 			 BufferedImage image = ImageIO.read(url);
-		  
-			 //get type
 			 
-			 //save with correct extension
-			 File file = new File(d.getFileName()); 
+			//need to check format and save with correct extension
+			 
+			 File directory = new File(dowloadDirectory);
+			 directory.mkdir();
+			 
+			 File file = new File(directory, d.getFileName()); 
 			 ImageIO.write(image, "png", file);
-			 
 		 } catch (IOException e) { 
-			 System.out.println("error" + e.getMessage()); 
+			 System.out.println("Error" + e.getMessage()); 
 		 }
 	}
 	

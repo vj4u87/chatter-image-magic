@@ -18,32 +18,33 @@ import com.sforce.ws.ConnectionException;
 public class ChatterImageMagic {
 
 	public static void main(String[] args) {
+		//Read inputs from propery files.
+		
 		SalesforceClient salesforceClient = new SalesforceClient(
 				"vswamidass@salesforce.com",
-				"MrandMrs#0");
+				"");
+		
 		if (salesforceClient.login()) {
 			List<SObject> userList = salesforceClient.getQueryResultRecords("" +
 					"Select Id,SmallPhotoUrl,FullPhotoUrl from User " +
 					"where FullPhotoUrl !=  '/profilephoto/005/F' " +
-					"and IsActive = true LIMIT 5");
+					"and IsActive = true LIMIT 100");
+			
+			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient,"images");
 			
 			Integer count = 0;
-			
-			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient);
-			
 			for (SObject s : userList) {
-				//download image
 				ChatterProfileImage i = new ChatterProfileImage(
 						s.getField("SmallPhotoUrl").toString(),
 						s.getField("FullPhotoUrl").toString(),
 						s.getField("Id").toString());
-				System.out.println(i.getSmallPhotoUrl());
 				sd.downloadImageToFile(i);
 				count++;
 			}
+			System.out.println("Downloaded " + count + " images");
 		}
 		
-		System.out.println(salesforceClient.getProtocolAndHost());
+
 	}
 
 }
