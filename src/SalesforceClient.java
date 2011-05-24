@@ -1,3 +1,5 @@
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
 import com.sforce.soap.partner.GetUserInfoResult;
@@ -6,27 +8,18 @@ import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.net.MalformedURLException;
+
 import java.net.URL;
+import java.util.*;
+
+import java.io.*;
 
 import javax.imageio.ImageIO;
-
-import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.sobject.*;
-
-import com.sforce.ws.ConnectorConfig;
-import com.sforce.ws.ConnectionException;
-
 
 public class SalesforceClient {
 	private static String DEFAULT_ENDPOINT = "http://www.salesforce.com/services/Soap/u/21.0";
 		
-	private String authEndPoint = "";
 	private ConnectorConfig config = new ConnectorConfig();
 	
 	private PartnerConnection connection;
@@ -50,7 +43,6 @@ public class SalesforceClient {
 
 		try {
 			connection = new PartnerConnection(config);
-			
 			success = true;
 		} catch (ConnectionException ce) {
 			ce.printStackTrace();
@@ -67,6 +59,28 @@ public class SalesforceClient {
 		}
 	}
 	
+	public String getServiceEndpoint() {
+		return config.getServiceEndpoint();
+	}
+	
+	public String getProtocolAndHost() {
+		try {
+			URL u = new URL(this.getServiceEndpoint());
+			StringBuilder s = new StringBuilder(this.getServiceEndpoint());
+			Integer pathIndex = s.indexOf(u.getPath());
+			
+			s.replace(pathIndex, s.length(), "");
+			
+			return s.toString();
+		} catch (MalformedURLException e) {
+			return null;
+		}	
+	}
+	
+	public String getSessionId() {
+		return config.getSessionId();
+	}
+	
 	public void getUserInfo() {
 		try {
 			GetUserInfoResult userInfo = connection.getUserInfo();
@@ -80,22 +94,14 @@ public class SalesforceClient {
 		System.out.println("User Email: " + userInfo.getUserEmail());
 		System.out.println();
 		*/
-		System.out.println("SessionID: " + config.getSessionId());
-		System.out.println("Auth End Point: " + config.getAuthEndpoint());
-		authEndPoint = config.getAuthEndpoint();
-		System.out.println("Service End Point: "
-				+ config.getServiceEndpoint());
-		System.out.println();
-	}
-	                           
 
-	public void downloadImage(Downloadable d) {
-		
 	}
-	
-	public SObject[] runQuery(String soql) {
+
+	public List<SObject> getQueryResultRecords(String soql) {
 		try {
 			QueryResult result = connection.query(soql);
+			
+			List<SObject> allRecords = new ArrayList<SObject>();
 			
 			boolean done = false;
 			
@@ -103,7 +109,7 @@ public class SalesforceClient {
 				while (!done) {
 					SObject[] records = result.getRecords();
 					for (SObject s : records) {
-						System.out.println(s.getId());
+						allRecords.add(s);
 					}
 					if (result.isDone()) {
 						done = true;
@@ -115,7 +121,7 @@ public class SalesforceClient {
 				System.out.println("No records found.");
 			}
 			
-			return null; 
+			return allRecords; 
 		} catch (ConnectionException ce) {
 			ce.printStackTrace();
 			return null;
