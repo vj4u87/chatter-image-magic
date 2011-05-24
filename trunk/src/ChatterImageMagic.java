@@ -20,6 +20,10 @@ public class ChatterImageMagic {
 
 		ChatterImageMagic.loadConfigProperties();
 		
+		if (configProperties.getProperty("username") != null) {
+			Utils.setDebugEnabled(true);
+		}
+		
 		String un;
 		un = configProperties.getProperty("username");
 		if (un == null) {
@@ -36,9 +40,9 @@ public class ChatterImageMagic {
 		
 		if (salesforceClient.login()) {
 			List<SObject> userList = salesforceClient.getQueryResultRecords("" +
-					"Select Id,SmallPhotoUrl,FullPhotoUrl,Username from User " +
-					"where FullPhotoUrl !=  '/profilephoto/005/F' " +
-					"and IsActive = true LIMIT 10");
+					"SELECT Id,SmallPhotoUrl,FullPhotoUrl,Username from User " +
+					"WHERE FullPhotoUrl !=  '/profilephoto/005/F' " +
+					"AND IsActive = true");
 			
 			String dir = configProperties.getProperty("image_directory");
 			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient,dir);
@@ -54,9 +58,8 @@ public class ChatterImageMagic {
 				count++;
 			}
 			System.out.println("Downloaded " + count + " images");
+		} else {
+			System.out.println("Error logging in.  Please check your username, password, and API key.");
 		}
-		
-
 	}
-
 }

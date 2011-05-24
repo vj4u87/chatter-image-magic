@@ -4,8 +4,16 @@ import java.io.InputStreamReader;
 
 
 public class Utils {
-	private static BufferedReader reader = new BufferedReader(
-			new InputStreamReader(System.in));
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static boolean isDebugEnabled = false;
+	
+	public static void setDebugEnabled(boolean e) {
+		isDebugEnabled = e;
+	}
+	
+	public static boolean isDebugEnabled() {
+		return isDebugEnabled;
+	}
 	
 	public static String getUserInput(String prompt) {
 		String result = "";
