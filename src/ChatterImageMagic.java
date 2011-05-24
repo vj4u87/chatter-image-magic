@@ -1,20 +1,8 @@
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
-import javax.imageio.ImageIO;
-
-import com.sforce.soap.partner.*;
 import com.sforce.soap.partner.sobject.*;
-
-import com.sforce.ws.ConnectorConfig;
-import com.sforce.ws.ConnectionException;
 
 public class ChatterImageMagic {
 
@@ -26,8 +14,7 @@ public class ChatterImageMagic {
 		} catch (IOException e) {
 			System.out.println("WARNING: unable to read config.properties.");
 		}
-
-	}   
+	}
 
 	public static void main(String[] args) {
 
