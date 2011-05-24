@@ -16,6 +16,10 @@ public class SalesforceDownloader {
 		dowloadDirectory = d;
 	}
 	
+	private String getTokenString() {
+		return "?oauth_token=" + salesforceClient.getSessionId();
+	}
+	
 	/*
 	 * Sometimes the urls include the host and port, sometimes they don't
 	 * 
@@ -28,7 +32,7 @@ public class SalesforceDownloader {
 			hostAndPath = salesforceClient.getProtocolAndHost() + path;
 		}
 		
-		return hostAndPath + "?oauth_token=" + salesforceClient.getSessionId();
+		return hostAndPath + getTokenString();
 	}
 	
 	public void downloadImageToFile(Downloadable d) {

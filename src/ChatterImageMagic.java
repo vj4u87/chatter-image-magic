@@ -20,7 +20,7 @@ public class ChatterImageMagic {
 
 		ChatterImageMagic.loadConfigProperties();
 		
-		if (configProperties.getProperty("username") != null) {
+		if (configProperties.getProperty("debug") != null) {
 			Utils.setDebugEnabled(true);
 		}
 		
