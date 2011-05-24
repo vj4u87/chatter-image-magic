@@ -30,7 +30,8 @@ public class SalesforceClient {
 			config.setPassword(password);
 
 			config.setAuthEndpoint(DEFAULT_ENDPOINT);
-			if (false) {
+			
+			if (Utils.isDebugEnabled()) {
 				config.setTraceFile("traceLogs.txt");
 				config.setTraceMessage(true);
 				config.setPrettyPrintXml(true);
@@ -47,8 +48,8 @@ public class SalesforceClient {
 			connection = new PartnerConnection(config);
 			success = true;
 		} catch (ConnectionException ce) {
-			ce.printStackTrace();
-		} 
+			return success;
+		}
 		return success;
 	}
 	

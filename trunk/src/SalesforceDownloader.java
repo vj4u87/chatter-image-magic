@@ -16,6 +16,10 @@ public class SalesforceDownloader {
 		dowloadDirectory = d;
 	}
 	
+	/*
+	 * Sometimes the urls include the host and port, sometimes they don't
+	 * 
+	 */
 	public String getFullUrl(String path) {
 		String hostAndPath;
 		if (path.contains("https://")){
