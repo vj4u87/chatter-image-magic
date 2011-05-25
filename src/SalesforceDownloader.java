@@ -39,10 +39,12 @@ public class SalesforceDownloader {
 		 try {
 			 URL url = new URL(getFullUrl(d.getUrl()));
 			 
-			 System.out.println(url);
+			 if (Utils.isDebugEnabled()) {
+				 System.out.println(url);
+			 }
 			 BufferedImage image = ImageIO.read(url);
 			 
-			//need to check format and save with correct extension
+			 //need to check format and save with correct extension
 			 
 			 File directory = new File(dowloadDirectory);
 			 directory.mkdir();

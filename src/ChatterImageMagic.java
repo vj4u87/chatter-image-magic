@@ -40,7 +40,7 @@ public class ChatterImageMagic {
 
 		String endPoint;
 		endPoint = configProperties.getProperty("endpoint");
-		if (endPoint == null || endPoint.equals("")) {
+		if (endPoint != null && !endPoint.equals("")) {
 			salesforceClient.setEndpoint(endPoint);
 		}
 		
