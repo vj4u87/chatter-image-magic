@@ -37,6 +37,12 @@ public class ChatterImageMagic {
 		}
 		
 		SalesforceClient salesforceClient = new SalesforceClient(un,pw);
+
+		String endPoint;
+		endPoint = configProperties.getProperty("endpoint");
+		if (endPoint == null || endPoint.equals("")) {
+			salesforceClient.setEndpoint(endPoint);
+		}
 		
 		if (salesforceClient.login()) {
 			List<SObject> userList = salesforceClient.getQueryResultRecords("" +

@@ -40,6 +40,10 @@ public class SalesforceClient {
 			fnfe.printStackTrace();
 		}
 	}
+
+	public void setEndpoint(String e) {
+		config.setAuthEndpoint(e);
+	}
 	
 	public boolean login() {
 		boolean success = false;
