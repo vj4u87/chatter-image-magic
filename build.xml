@@ -21,6 +21,7 @@
 	</target>
 
 	<target name="compile">
+		<mkdir dir="${bin.dir}" />
 		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false" source="1.5" target="1.5">
 			<classpath refid="classpath" />
 		</javac>
@@ -49,6 +50,7 @@
 		</copy>
 
 		<chmod file="${out.dir}/" perm="700"/>
+		<chmod file="${out.dir}/run.sh" perm="700"/>
 	</target>
 
 	<target name="package" depends="build">
