@@ -1,9 +1,9 @@
 <project default="build">
 	<property name="base.dir" value="./" />
 	<property name="lib.dir" value="${base.dir}/lib" />
-	<property name="bin.dir" value="${base.dir}/" />
+	<property name="bin.dir" value="${base.dir}/bin" />
 	<property name="src.dir" value="${base.dir}/src" />
-	<property name="out.dir" value="${base.dir}/cliq" />
+	<property name="out.dir" value="${base.dir}/cim" />
 
 	<path id="classpath">
 		<pathelement path="${classpath}" />
@@ -34,9 +34,9 @@
 		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false" source="1.5" target="1.5">
 			<classpath refid="classpath" />
 		</javac>
-		<jar destfile="${out.dir}/cliq.jar" basedir="${bin.dir}" includes="**/*">
+		<jar destfile="${out.dir}/cim.jar" basedir="${bin.dir}" includes="**/*">
 			<manifest>
-				<attribute name="Main-Class" value="com.salesforce.cliq.DataLoaderCliq" />
+				<attribute name="Main-Class" value="ChatterImageMagic" />
 			</manifest>
 		</jar>
 
@@ -45,15 +45,15 @@
 			<fileset dir="${lib.dir}" includes="**/*" />
 		</copy>
 		<copy todir="${out.dir}" includeemptydirs="false">
-			<filelist dir="${src.dir}" files="cliq.sh,cliq.properties,cliq.bat" />
+			<filelist dir="${base.dir}" files="run.sh,config.properties" />
 		</copy>
 
-		<chmod file="${out.dir}/cliq.sh" perm="700"/>
+		<chmod file="${out.dir}/" perm="700"/>
 	</target>
 
 	<target name="buildZip" depends="build">
-		<zip destfile="${base.dir}/cliq.zip">
-			<fileset dir="${base.dir}" includes="cliq/" />
+		<zip destfile="${base.dir}/cim.zip">
+			<fileset dir="${base.dir}" includes="cim/" />
 		</zip>
 	</target>
 </project>
