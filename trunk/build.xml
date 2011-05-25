@@ -51,9 +51,9 @@
 		<chmod file="${out.dir}/" perm="700"/>
 	</target>
 
-	<target name="buildZip" depends="build">
-		<zip destfile="${base.dir}/cim.zip">
+	<target name="package" depends="build">
+		<tar destfile="${base.dir}/cim.tar.gz" compression="gzip">
 			<fileset dir="${base.dir}" includes="cim/" />
-		</zip>
+		</tar>
 	</target>
 </project>
