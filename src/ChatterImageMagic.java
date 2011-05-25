@@ -45,6 +45,9 @@ public class ChatterImageMagic {
 					"AND IsActive = true");
 			
 			String dir = configProperties.getProperty("image_directory");
+			if (dir == null || dir.equals("")) {
+				dir = "images";	
+			}
 			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient,dir);
 			
 			Integer count = 0;
