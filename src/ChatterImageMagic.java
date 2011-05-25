@@ -44,16 +44,17 @@ public class ChatterImageMagic {
 			salesforceClient.setEndpoint(endPoint);
 		}
 		
+		String dir = configProperties.getProperty("image_directory");
+		if (dir == null || dir.equals("")) {
+			dir = "images";	
+		}
+		
 		if (salesforceClient.login()) {
 			List<SObject> userList = salesforceClient.getQueryResultRecords("" +
 					"SELECT Id,SmallPhotoUrl,FullPhotoUrl,Username from User " +
 					"WHERE FullPhotoUrl !=  '/profilephoto/005/F' " +
 					"AND IsActive = true");
 			
-			String dir = configProperties.getProperty("image_directory");
-			if (dir == null || dir.equals("")) {
-				dir = "images";	
-			}
 			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient,dir);
 			
 			Integer count = 0;
@@ -66,7 +67,7 @@ public class ChatterImageMagic {
 				sd.downloadImageToFile(i);
 				count++;
 			}
-			System.out.println("Downloaded " + count + " images");
+			System.out.println("Downloaded " + count + " images to " + dir);
 		} else {
 			System.out.println("Error logging in.  Please check your username, password, and API key.");
 		}
