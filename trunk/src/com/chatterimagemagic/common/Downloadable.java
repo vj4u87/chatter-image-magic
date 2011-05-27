@@ -7,4 +7,6 @@ public interface Downloadable {
 	public File getFile();
 	
 	public File getDirectory();
+	
+	public String getFormat();
 }

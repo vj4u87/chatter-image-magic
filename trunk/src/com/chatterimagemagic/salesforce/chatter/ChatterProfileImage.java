@@ -10,7 +10,7 @@ public class ChatterProfileImage implements Downloadable {
 	ChatterImageType type;
 	
 	public enum ChatterImageType {SMALL, FULL}
-	public static String IMAGE_FORMAT = "png";
+	public static String IMAGE_FORMAT = "jpg";
 	
 	public ChatterProfileImage(ChatterUser u, ChatterImageType t) {
 		user = u;

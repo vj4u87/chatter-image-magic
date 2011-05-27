@@ -57,7 +57,7 @@ public class SalesforceDownloader {
 			 subDirectory.mkdir();
 			 
 			 File file = new File(subDirectory,d.getFile().getPath());
-			 ImageIO.write(image, "png", file);
+			 ImageIO.write(image, d.getFormat(), file);
 		 } catch (IOException e) { 
 			 System.out.println("Error" + e.getMessage()); 
 		 }
