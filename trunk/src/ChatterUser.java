@@ -22,4 +22,12 @@ public class ChatterUser {
 	public String getFullPhotoUrl() {
 		return fullPhotoUrl;
 	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

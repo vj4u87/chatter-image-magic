@@ -24,12 +24,12 @@ public class SalesforceDownloader {
 	 * Sometimes the urls include the host and port, sometimes they don't
 	 * 
 	 */
-	public String getFullUrl(String path) {
+	public String getFullUrl(String url) {
 		String hostAndPath;
-		if (path.contains("https://")){
-			hostAndPath = path;
+		if (url.contains("https://")){
+			hostAndPath = url;
 		} else {
-			hostAndPath = salesforceClient.getProtocolAndHost() + path;
+			hostAndPath = salesforceClient.getProtocolAndHost() + url;
 		}
 		
 		return hostAndPath + getTokenString();
@@ -46,10 +46,10 @@ public class SalesforceDownloader {
 			 
 			 //need to check format and save with correct extension
 			 
-			 File directory = new File(dowloadDirectory);
+			 File directory = new File(dowloadDirectory,d.getDirectory().getPath());
 			 directory.mkdir();
 			 
-			 File file = new File(directory, d.getFileName()); 
+			 File file = new File(directory,d.getFile().getPath());
 			 ImageIO.write(image, "png", file);
 		 } catch (IOException e) { 
 			 System.out.println("Error" + e.getMessage()); 

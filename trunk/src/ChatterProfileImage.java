@@ -1,31 +1,32 @@
+import java.io.*;
 
 public class ChatterProfileImage implements Downloadable {
 	
-	String smallPhotoUrl;
-	String fullPhotoUrl;
-	String userId;
-	String username;
+	ChatterUser user;
+	ChatterImageType type;
 	
-	public ChatterProfileImage(String s, String f, String id, String n) {
-		smallPhotoUrl = s;
-		fullPhotoUrl = f;
-		userId = id;
-		username = n;
+	public enum ChatterImageType {SMALL, FULL}
+	public static String IMAGE_FORMAT = "png";
+	
+	public ChatterProfileImage(ChatterUser u, ChatterImageType t) {
+		user = u;
+		type = t;
 	}
 	
-	public String getFileName() {
-		return userId + '_' + username.toLowerCase().replace('@', '_').replace('.', '_');
+	public String getFormat() {
+		return IMAGE_FORMAT;
+	}
+	
+	public File getFile() {
+		return new File(user.getUserId() + '_' + user.getName().toLowerCase().replace('\'', '_').replace(' ', '_') + "." + getFormat());
+	}
+
+	public File getDirectory() {
+		return new File(type.toString().toLowerCase()); 
 	}
 	
 	public String getUrl() {
-		return smallPhotoUrl;
+		return type == ChatterImageType.SMALL ? user.getSmallPhotoUrl() : user.getFullPhotoUrl();
 	}
 	
-	public String getSmallPhotoUrl() {
-		return smallPhotoUrl;
-	}
-	
-	public String getFullPhotoUrl() {
-		return fullPhotoUrl;
-	}
 }

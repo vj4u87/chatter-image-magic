@@ -1,6 +1,9 @@
+import java.io.*;
 
 public interface Downloadable {
 	public String getUrl();
 	
-	public String getFileName();
+	public File getFile();
+	
+	public File getDirectory();
 }
