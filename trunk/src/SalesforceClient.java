@@ -18,7 +18,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 public class SalesforceClient {
-	private static String DEFAULT_ENDPOINT = "http://www.salesforce.com/services/Soap/u/21.0";
+	private static String DEFAULT_ENDPOINT = "https://www.salesforce.com/services/Soap/u/21.0";
 		
 	private ConnectorConfig config = new ConnectorConfig();
 	
@@ -28,7 +28,6 @@ public class SalesforceClient {
 		try {
 			config.setUsername(username);
 			config.setPassword(password);
-
 			config.setAuthEndpoint(DEFAULT_ENDPOINT);
 			
 			if (Utils.isDebugEnabled()) {
@@ -52,6 +51,7 @@ public class SalesforceClient {
 			connection = new PartnerConnection(config);
 			success = true;
 		} catch (ConnectionException ce) {
+			System.out.println(ce.toString());
 			return success;
 		}
 		return success;
