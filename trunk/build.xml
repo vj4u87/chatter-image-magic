@@ -37,7 +37,7 @@
 		</javac>
 		<jar destfile="${out.dir}/cim.jar" basedir="${bin.dir}" includes="**/*">
 			<manifest>
-				<attribute name="Main-Class" value="ChatterImageMagic" />
+				<attribute name="Main-Class" value="com.chatterimagemagic.ChatterImageMagic" />
 			</manifest>
 		</jar>
 
