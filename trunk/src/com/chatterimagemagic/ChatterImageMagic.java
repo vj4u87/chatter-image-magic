@@ -69,17 +69,20 @@ public class ChatterImageMagic {
 			Integer count = 0;
 			for (SObject s : userList) {
 				System.out.print(count + " of " + userList.size() + "-" + s.getField("Username") + "...");
+				
 				ChatterUser user = new ChatterUser(
 						s.getField("SmallPhotoUrl").toString(),
 						s.getField("FullPhotoUrl").toString(),
 						s.getField("Id").toString(),
 						s.getField("Username").toString(),
 						s.getField("Name").toString());
+				
 				ChatterProfileImage smallImage = new ChatterProfileImage(user,ChatterProfileImage.ChatterImageType.SMALL);
 				ChatterProfileImage fullImage = new ChatterProfileImage(user,ChatterProfileImage.ChatterImageType.FULL);
 				
 				sd.downloadImageToFile(smallImage);
 				sd.downloadImageToFile(fullImage);
+				
 				System.out.println("done.");
 				count++;
 			}
