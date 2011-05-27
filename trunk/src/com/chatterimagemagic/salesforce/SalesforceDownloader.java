@@ -50,12 +50,13 @@ public class SalesforceDownloader {
 			 }
 			 BufferedImage image = ImageIO.read(url);
 			 
-			 //need to check format and save with correct extension
+			 File rootDirectory = new File(dowloadDirectory);
+			 rootDirectory.mkdir();
+
+			 File subDirectory = new File(rootDirectory,d.getDirectory().getPath());
+			 subDirectory.mkdir();
 			 
-			 File directory = new File(dowloadDirectory,d.getDirectory().getPath());
-			 directory.mkdir();
-			 
-			 File file = new File(directory,d.getFile().getPath());
+			 File file = new File(subDirectory,d.getFile().getPath());
 			 ImageIO.write(image, "png", file);
 		 } catch (IOException e) { 
 			 System.out.println("Error" + e.getMessage()); 
