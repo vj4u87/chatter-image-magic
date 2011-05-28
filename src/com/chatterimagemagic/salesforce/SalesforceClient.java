@@ -105,7 +105,7 @@ public class SalesforceClient {
 		*/
 
 	}
-
+	
 	public List<SObject> getQueryResultRecords(String soql) {
 		try {
 			QueryResult result = connection.query(soql);
