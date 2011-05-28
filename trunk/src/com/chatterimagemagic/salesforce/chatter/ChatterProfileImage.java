@@ -10,19 +10,14 @@ public class ChatterProfileImage implements Downloadable {
 	ChatterImageType type;
 	
 	public enum ChatterImageType {SMALL, FULL}
-	public static String IMAGE_FORMAT = "jpg";
 	
 	public ChatterProfileImage(ChatterUser u, ChatterImageType t) {
 		user = u;
 		type = t;
 	}
 	
-	public String getFormat() {
-		return IMAGE_FORMAT;
-	}
-	
-	public File getFile() {
-		return new File(user.getUserId() + '_' + user.getName().toLowerCase().replace('\'', '_').replace(' ', '_') + "." + getFormat());
+	public File getLocalFileName() {
+		return new File(user.getUserId() + '_' + user.getName().toLowerCase().replace('\'', '_').replace(' ', '_'));
 	}
 
 	public File getDirectory() {

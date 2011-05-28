@@ -4,9 +4,7 @@ import java.io.*;
 public interface Downloadable {
 	public String getUrl();
 	
-	public File getFile();
+	public File getLocalFileName();
 	
 	public File getDirectory();
-	
-	public String getFormat();
 }
