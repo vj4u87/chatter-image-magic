@@ -64,11 +64,10 @@ public class ChatterImageMagic {
 							+ "SELECT Id,SmallPhotoUrl,FullPhotoUrl,Username,Name from User "
 							+ "WHERE FullPhotoUrl !=  '/profilephoto/005/F' "
 							+ "AND IsActive = true LIMIT 100");
+			
+			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient, dir);
+			
 			try {
-				//SalesforceDownloader sd;
-
-				SalesforceDownloader sd = new SalesforceDownloader(salesforceClient, dir);
-
 				Integer count = 0;
 				for (SObject s : userList) {
 					System.out.print(count + " of " + userList.size() + "-"
@@ -84,17 +83,22 @@ public class ChatterImageMagic {
 							user, ChatterProfileImage.ChatterImageType.SMALL);
 					ChatterProfileImage fullImage = new ChatterProfileImage(
 							user, ChatterProfileImage.ChatterImageType.FULL);
-
-					smallImage.downloadToFile(sd);
-					fullImage.downloadToFile(sd);
-
+					try {
+						smallImage.downloadToFile(sd);
+						fullImage.downloadToFile(sd);
+					} catch (IOException e) {
+						throw e;
+					} catch (Exception ex) {
+						System.out.println("Error downloading image.");
+					}
+					
 					System.out.println("done.");
 					count++;
 				}
 
 				System.out.println("Downloaded " + count + " images to " + dir);
 			} catch (Exception fnf) {
-				System.out.println("Unable to create download directory.");
+				System.out.println("Unable to create file.  Please make sure you have access to write to : " + dir);
 			}
 		} else {
 			System.out
