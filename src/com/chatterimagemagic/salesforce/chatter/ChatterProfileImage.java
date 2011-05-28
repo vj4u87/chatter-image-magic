@@ -94,18 +94,25 @@ public class ChatterProfileImage extends SalesforceResource implements Downloada
 				System.out.println(url);
 			}
 			
-			image = ImageIO.read(url);
-
-			String format = getNormalizedFormat(url);
-
 			File subDirectory = new File(sd.getDownloadDirectory(), getLocalDirectory()
 					.getPath());
-			subDirectory.mkdir();
+			
+			if (!subDirectory.exists()) {
+				if (!subDirectory.mkdirs())
+					throw new IOException("unable to create directory for file " + subDirectory.getPath());
+			}
+			
+			image = ImageIO.read(url);
+
+			//This should be optimized somehow to get the format from the Image, but 
+			//I don't know how to do that yet
+			String format = getNormalizedFormat(url);
 
 			File file = new File(subDirectory, getLocalFileName().getPath() + "." + format);
+			
+			//http://bugs.sun.com/view_bug.do;jsessionid=9d9608039487fffffffffa30abad058c82ac?bug_id=6560950
 			ImageIO.write(image, format, file);
 		} catch (Exception e) {
-			//System.out.println("Error" + e.getMessage());
 			throw e;
 		}
 	}
