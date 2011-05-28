@@ -11,5 +11,5 @@ public interface Downloadable {
 	
 	public File getLocalDirectory();
 	
-	public void downloadToFile(Downloader d);
+	public void downloadToFile(Downloader d) throws Exception;
 }
