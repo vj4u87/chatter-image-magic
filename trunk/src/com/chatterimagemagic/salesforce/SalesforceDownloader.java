@@ -9,8 +9,8 @@ public class SalesforceDownloader extends Downloader {
 	private SalesforceClient salesforceClient;
 
 	public SalesforceDownloader(SalesforceClient sc, String d) {
+		super(d);
 		salesforceClient = sc;
-		downloadDirectory = d;
 	}
 	
 	private String getTokenString() {

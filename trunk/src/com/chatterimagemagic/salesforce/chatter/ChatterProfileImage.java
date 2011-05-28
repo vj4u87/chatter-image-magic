@@ -86,7 +86,7 @@ public class ChatterProfileImage extends SalesforceResource implements Downloada
 		return null;
 	}
 
-	public void downloadToFile(Downloader sd) {
+	public void downloadToFile(Downloader sd) throws Exception {
 		try {
 			URL url = new URL(sd.getDownloadUrl(getUrl()));
 
@@ -104,8 +104,9 @@ public class ChatterProfileImage extends SalesforceResource implements Downloada
 
 			File file = new File(subDirectory, getLocalFileName().getPath() + "." + format);
 			ImageIO.write(image, format, file);
-		} catch (IOException e) {
-			System.out.println("Error" + e.getMessage());
+		} catch (Exception e) {
+			//System.out.println("Error" + e.getMessage());
+			throw e;
 		}
 	}
 
