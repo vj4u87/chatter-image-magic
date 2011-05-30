@@ -1,4 +1,5 @@
-#summary How to Build Your Own Version of CIM
+#labels Featured
+f#summary How to Build Your Own Version of CIM
 
 = Introduction =
 
