@@ -10,8 +10,8 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 import com.chatterimagemagic.common.Downloadable;
+import com.chatterimagemagic.common.Downloader;
 import com.chatterimagemagic.common.Utils;
-import com.chatterimagemagic.salesforce.Downloader;
 import com.chatterimagemagic.salesforce.SalesforceDownloader;
 import com.chatterimagemagic.salesforce.SalesforceResource;
 

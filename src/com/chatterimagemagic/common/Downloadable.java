@@ -1,7 +1,6 @@
 package com.chatterimagemagic.common;
 import java.io.*;
 
-import com.chatterimagemagic.salesforce.Downloader;
 import com.chatterimagemagic.salesforce.SalesforceDownloader;
 
 public interface Downloadable {
