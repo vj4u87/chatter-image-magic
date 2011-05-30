@@ -1,4 +1,5 @@
 #summary Getting Started with Chatter Image Magic
+#labels Featured
 
 = Introduction =
 
