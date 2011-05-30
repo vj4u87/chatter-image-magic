@@ -1,4 +1,4 @@
-package com.chatterimagemagic.salesforce;
+package com.chatterimagemagic.common;
 
 import java.io.File;
 import java.net.URL;
