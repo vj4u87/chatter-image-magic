@@ -63,7 +63,7 @@ public class ChatterImageMagic {
 					.getQueryResultRecords(""
 							+ "SELECT Id,SmallPhotoUrl,FullPhotoUrl,Username,Name from User "
 							+ "WHERE FullPhotoUrl !=  '/profilephoto/005/F' "
-							+ "AND IsActive = true LIMIT 100");
+							+ "AND IsActive = true");
 			
 			SalesforceDownloader sd = new SalesforceDownloader(salesforceClient, dir);
 			
